@@ -1,14 +1,14 @@
 <mat-toolbar color='primary'>
   <button mat-icon-button><mat-icon>menu</mat-icon></button>
   <div class='branding'>
-    <a mat-button routerLink='/home'>
+    <a mat-button routerLink='/login'>
       <mat-icon svgIcon="lemon"></mat-icon>
       <span>LemonMart</span>
     </a>
   </div>
-  <div class='right'>
+  <div class='right' *ngIf="isAuthenticated">
     <button mat-icon-button routerLink="/user/profile" matTooltip="Profile"><mat-icon>account_circle</mat-icon></button>
-    <button mat-icon-button routerLink="/user/logout" matTooltip="Logout"><mat-icon>login</mat-icon></button>
+    <button mat-icon-button routerLink="/user/logout" matTooltip="Logout"><mat-icon>exit_to_app</mat-icon></button>
   </div>
 </mat-toolbar>
 

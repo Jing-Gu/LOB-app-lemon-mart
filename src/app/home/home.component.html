@@ -1,4 +1,11 @@
 <div class='main'>
   <h1>Hello, Lemonite!</h1>
+  <div *ngIf="displayLogin" #notLogin>
+    <app-login></app-login>  
+  </div>
+  <ng-template #notLogin>
+    <p>You get a lemon, you get a lemon, you get a lemon...</p>
+  </ng-template>
+  
   <button mat-raised-button color="accent" routerLink="/manager">Login As Manager</button>
 </div>
