@@ -15,13 +15,15 @@ import { PosModule } from './pos/pos.module'
 import { UserModule } from './user/user.module'
 
 import { HomeComponent } from './home/home.component'
-import { NotFoundComponent } from './shared/not-found/not-found.component'
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SimpleDialogComponent
   ],
   imports: [
     BrowserModule,

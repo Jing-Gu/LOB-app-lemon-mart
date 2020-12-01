@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { Role } from '../role.enum'
+import { EmailValidation, PasswordValidation } from '../../common/validations'
 
 @Component({
   selector: 'app-signup',
@@ -22,12 +23,8 @@ export class SignupComponent implements OnInit {
   ) { }
 
   signupForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(50)
-    ]]
+    email: ['', EmailValidation],
+    password: ['', PasswordValidation]
   })
  
 
@@ -42,6 +39,7 @@ export class SignupComponent implements OnInit {
           resData => {
             console.log(resData)
             this.isLoading = false
+            this.router.navigate(['/manager'])
           },
           errorMsg => {
             console.log(errorMsg)
@@ -49,6 +47,7 @@ export class SignupComponent implements OnInit {
             this.isLoading = false
           }
         )
+      this.authService.defineUserAuthStatus(this.signupForm.value.email, 'Welcome!')
     }
   }
 

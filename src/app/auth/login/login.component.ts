@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { Role } from '../role.enum'
+import { EmailValidation, PasswordValidation } from '../../common/validations'
 
 @Component({
   selector: 'app-login',
@@ -28,12 +29,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(50)
-    ]]
+    email: ['', EmailValidation],
+    password: ['', PasswordValidation]
   })
 
   onSubmit(){
@@ -51,6 +48,8 @@ export class LoginComponent implements OnInit {
         this.isLoading = false
       }
     )
+    this.authService.defineUserAuthStatus(this.loginForm.value.email, 'Welcome back!')
+ 
   }
 
   
