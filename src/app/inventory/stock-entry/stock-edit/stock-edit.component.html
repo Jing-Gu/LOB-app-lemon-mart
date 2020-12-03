@@ -1,0 +1,17 @@
+<form>
+  <mat-form-field appearance='outline'>
+    <mat-label>Name</mat-label>
+    <input matInput type='text' placeholder="Ex. Pizza" #nameInput>
+  </mat-form-field>
+  <mat-form-field appearance='outline'>
+    <mat-label>Amount</mat-label>
+    <input matInput type='number' min='0' placeholder="Ex. 3" #amountInput>
+  </mat-form-field>
+
+  <div class='btn-groups'>
+    <button mat-flat-button color="primary" type='button' (click)='onAddIngredient()'>Add</button>
+    <button mat-flat-button color="warn" type='button'>Delete</button>
+    <button mat-flat-button color="accent" type='button'>Clear</button>
+  </div>
+
+</form>

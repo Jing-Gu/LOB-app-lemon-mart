@@ -1,0 +1,22 @@
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class='image-box'>
+      <img [src]='product.imagePath' alt=''>
+    </div>
+    <p class="desc">{{ product.description }}</p>
+    <ul class='ingredients-list'>
+      <li class='ingredients-list-item' *ngFor="let ingredient of product.ingredients">
+        {{ ingredient.name }} - {{ ingredient.amount}}
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button type="button" color="primary" (click)='onAddToStock()'>Add to stock entry</button>
+    <button mat-raised-button type="button" color="accent">Edit</button>
+    <button mat-raised-button type="button" color="warn">Delete</button>
+  </mat-card-actions>
+</mat-card>

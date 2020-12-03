@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatDividerModule } from '@angular/material/divider'
 
 @NgModule({
   declarations: [],
@@ -20,7 +22,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatDividerModule
     ],
   exports: [
     MatButtonModule, 
@@ -31,7 +35,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

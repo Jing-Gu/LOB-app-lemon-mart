@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { Role } from '../role.enum'
 import { EmailValidation, PasswordValidation } from '../../common/validations'
+import { UiService } from '../../common/ui.service'
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UiService
   ) { 
     //route.paramMap.subscribe(params => this.redirectUrl = params.get('redirectUrl'))
   }
@@ -33,6 +35,19 @@ export class LoginComponent implements OnInit {
     password: ['', PasswordValidation]
   })
 
+  homeRoutePerRole(role: Role){
+    switch(role) {
+      case Role.Cashier:
+        return '/pos'
+      case Role.Clerk:
+        return '/inventory'
+      case Role.Manager:
+        return '/manager'
+      default:
+        return '/user/profile'
+    }
+  }
+
   onSubmit(){
     this.isLoading = true
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
@@ -40,7 +55,7 @@ export class LoginComponent implements OnInit {
       resData => {
         console.log(resData)
         this.isLoading = false
-        this.router.navigate(['/manager'])
+        //this.router.navigate([this.redirectUrl])
       },
       errorMsg => {
         console.log(errorMsg)
@@ -48,7 +63,13 @@ export class LoginComponent implements OnInit {
         this.isLoading = false
       }
     )
-    this.authService.defineUserAuthStatus(this.loginForm.value.email, 'Welcome back!')
+    this.authService.user.subscribe(
+      res => {
+        console.log(res)
+        this.router.navigate([this.homeRoutePerRole(res.role)])
+        this.uiService.showToast('Welcome back!' + ' ' + res.role)
+      }
+    )
  
   }
 

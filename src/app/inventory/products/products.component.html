@@ -1,1 +1,14 @@
-<p>products works!</p>
+<div class='product-container'>
+  <div class='left'>
+    <app-product-list></app-product-list>
+  </div>
+  <div class='right'>
+    <app-product-detail *ngIf="selected; else infoText" [product]='selected'></app-product-detail>
+    <!-- <app-product-detail></app-product-detail> -->
+    <ng-template #infoText>
+      <p>Please select a product</p>
+    </ng-template>
+  </div>
+  
+  
+</div>

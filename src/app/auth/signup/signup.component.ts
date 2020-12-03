@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { Role } from '../role.enum'
 import { EmailValidation, PasswordValidation } from '../../common/validations'
-
+import { UiService } from '../../common/ui.service'
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -19,7 +19,8 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UiService
   ) { }
 
   signupForm = this.fb.group({
@@ -47,7 +48,12 @@ export class SignupComponent implements OnInit {
             this.isLoading = false
           }
         )
-      this.authService.defineUserAuthStatus(this.signupForm.value.email, 'Welcome!')
+        this.authService.user.subscribe(
+          res => {
+            console.log(res)
+            this.uiService.showToast('First time? Welcome!' + ' ' + res.role)
+          }
+        )
     }
   }
 

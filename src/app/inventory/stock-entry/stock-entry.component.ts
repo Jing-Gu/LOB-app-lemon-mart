@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Ingredient } from '../../shared/ingredient.model'
+import { StockEntryService } from './stock-entry.service'
 @Component({
   selector: 'app-stock-entry',
   templateUrl: './stock-entry.component.html',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockEntryComponent implements OnInit {
 
-  constructor() { }
+  ingredients: Ingredient[]
+  
+  constructor(private stockEntryService: StockEntryService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.ingredients = this.stockEntryService.getIngredients()
+    this.stockEntryService.ingredientChanged.subscribe(
+      res => {
+        //console.log(res)
+        this.ingredients = res
+      }
+    )
   }
 
 }

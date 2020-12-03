@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, OnDestroy } from '@angular/core';
+import { ProductService } from './products.service'
+import { Product } from './products.model'
+import { Subject, Subscription } from 'rxjs'
+import * as Rx from "rxjs"
 
 @Component({
   selector: 'app-products',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor() { }
+  selected: Product
 
-  ngOnInit(): void {
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.productService.getProObs().subscribe(
+      (data) => {
+        //console.log(data)
+        this.selected = data
+      })
   }
+
+    
+        
+
+
 
 }

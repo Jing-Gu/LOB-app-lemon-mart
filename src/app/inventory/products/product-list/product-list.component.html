@@ -1,0 +1,8 @@
+<button mat-raised-button type="button" color="primary">New Product</button>
+<mat-divider></mat-divider>
+
+<app-product-item 
+  *ngFor="let productEl of products" 
+  [product]='productEl'>
+</app-product-item>
+

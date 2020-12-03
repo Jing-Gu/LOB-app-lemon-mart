@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 import { MaterialModule } from './material.module'
 
@@ -16,18 +17,21 @@ import { UserModule } from './user/user.module'
 
 import { HomeComponent } from './home/home.component'
 import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.component'
+import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.component';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    NavigationMenuComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     AuthModule,
     MaterialModule,

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StockEntryComponent } from './stock-entry.component';
+import { NavigationMenuComponent } from './navigation-menu.component';
 
-describe('StockEntryComponent', () => {
-  let component: StockEntryComponent;
-  let fixture: ComponentFixture<StockEntryComponent>;
+describe('NavigationMenuComponent', () => {
+  let component: NavigationMenuComponent;
+  let fixture: ComponentFixture<NavigationMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StockEntryComponent ]
+      declarations: [ NavigationMenuComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StockEntryComponent);
+    fixture = TestBed.createComponent(NavigationMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

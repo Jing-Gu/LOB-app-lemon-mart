@@ -26,7 +26,7 @@ interface IServerAuthResponse {
   registered?: boolean
 }
 
-/* export interface IAuthStatus {
+/* export interface IAuthStatus{
   isAuthenticated: boolean
   userRole: Role
   userId: string 
@@ -46,6 +46,8 @@ export class AuthService {
 
   user = new Subject<User>()
 
+  isAuthenticated = false
+
   apiKey = 'AIzaSyDUB__wWBluZOKCnyxgJyunfhWU_B7QT3A'
 
 
@@ -55,12 +57,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router, 
-    private uiService: UiService) {
-    // Fake login function to simulate roles 
-    //this.authProvider = this.fakeAuthProvider
-    // Example of a real login call to server-side
-    // this.authProvider = this.exampleAuthProvider
-   }
+    private uiService: UiService) {}
 
 
 
@@ -71,14 +68,17 @@ export class AuthService {
           password: passward,
           returnSecureToken: true
         }
-      ).pipe(catchError(this.handleError), tap( resData => {
-        this.handleAuthentication(
-          resData.email,
-          resData.localId,
-          resData.idToken,
-          +resData.expiresIn
-        )
-      }))
+      ).pipe(
+        catchError(this.handleError), 
+        tap( resData => {
+            this.handleAuthentication(
+              resData.email,
+              resData.localId,
+              resData.idToken,
+              +resData.expiresIn
+            )
+        })
+      )
    }
 
    login(email: string, passward: string){
@@ -88,14 +88,17 @@ export class AuthService {
           password: passward,
           returnSecureToken: true
         }
-     ).pipe(catchError(this.handleError), tap( resData => {
-      this.handleAuthentication(
-        resData.email,
-        resData.localId,
-        resData.idToken,
-        +resData.expiresIn
-      )
-    }))
+     ).pipe(
+       catchError(this.handleError), 
+       tap( resData => {
+          this.handleAuthentication(
+              resData.email,
+              resData.localId,
+              resData.idToken,
+              +resData.expiresIn
+            )
+          })
+    )
    }
 
    // auto sets the user to login when the app starts, by checking if there's exisitng user snapshot stored
@@ -105,15 +108,18 @@ export class AuthService {
       return
     }
 
-    const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate))
+    const loadedUser = new User(userData.email, userData.id, userData.role, userData._token, new Date(userData._tokenExpirationDate))
     if(loadedUser.token){
       this.user.next(loadedUser)
     }
    }
 
    logout(){
+     this.isAuthenticated = false
      this.user.next(null)
      this.router.navigate(['/login'])
+     localStorage.removeItem('userData')
+     // or localStorage.clear()
    }
 
    private handleError(errorRes: HttpErrorResponse){
@@ -142,23 +148,22 @@ export class AuthService {
      token: string,
      expiresIn: number,
    ){
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-    const user = new User(email, userId, token, expirationDate)
-    this.user.next(user)
-    localStorage.setItem('userData', JSON.stringify(user))
+      this.isAuthenticated = true
+      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+      const userRole = email.toLowerCase().includes('cashier') ? Role.Cashier
+        : email.toLowerCase().includes('clerk') ? Role.Clerk
+        : email.toLowerCase().includes('manager') ? Role.Manager 
+        : Role.None
+      const user = new User(email, userId, userRole, token, expirationDate)
+      this.user.next(user)
+      localStorage.setItem('userData', JSON.stringify(user))
+
+      //this.displayToastMsg(userRole)
    }
 
-   defineUserAuthStatus(email: string, message: string){
-     
-      const isAuthenticated = true
-      const userRole = email.toLowerCase().includes('cashier') ? Role.Cashier
-      : email.toLowerCase().includes('clerk') ? Role.Clerk
-      : email.toLowerCase().includes('manager') ? Role.Manager 
-      : Role.None
-      //console.log(userRole)
-    
-      this.uiService.showToast(message + ' ' + userRole)
-   }
+  /* displayToastMsg(userRole){
+      this.uiService.showToast('Welcome! ' + userRole)
+   } */
 
 
 }
