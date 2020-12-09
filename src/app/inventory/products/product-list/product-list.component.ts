@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { fromEventPattern } from 'rxjs'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
 import { Product } from '../products.model'
 import { ProductService } from '../products.service'
 
@@ -8,18 +9,30 @@ import { ProductService } from '../products.service'
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.sass']
 })
-export class ProductListComponent implements OnInit {
-  //@Output() productWasSelected = new EventEmitter<Product>()
-  constructor(private productService: ProductService){}
+export class ProductListComponent implements OnInit, OnDestroy {
 
-  products: Product[] 
+  constructor(private productService: ProductService,
+              private router: Router,
+              private route: ActivatedRoute){}
 
-  ngOnInit() {
+  products: Product[]
+  prodSub: Subscription
+
+  ngOnInit(){
+    this.prodSub = this.productService.productsChanged.subscribe(
+      (products: Product[]) => {
+        this.products = products
+      }
+    )
     this.products = this.productService.getProducts()
   }
 
-  /* onProductSelected(product: Product){
-    this.productWasSelected.emit(product)
-  } */
+  onNewProduct(){
+    this.router.navigate(['new'], {relativeTo: this.route})
+  }
+
+  ngOnDestroy(){
+    this.prodSub.unsubscribe()
+  }
 
 }

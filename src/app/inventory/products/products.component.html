@@ -3,12 +3,6 @@
     <app-product-list></app-product-list>
   </div>
   <div class='right'>
-    <app-product-detail *ngIf="selected; else infoText" [product]='selected'></app-product-detail>
-    <!-- <app-product-detail></app-product-detail> -->
-    <ng-template #infoText>
-      <p>Please select a product</p>
-    </ng-template>
+    <router-outlet></router-outlet>
   </div>
-  
-  
 </div>

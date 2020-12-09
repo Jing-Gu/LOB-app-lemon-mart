@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable, BehaviorSubject } from 'rxjs'
+import { Observable, BehaviorSubject, Subject } from 'rxjs'
 import { Ingredient } from 'src/app/shared/ingredient.model'
 import { StockEntryService } from '../stock-entry/stock-entry.service'
 import { Product } from './products.model'
@@ -9,7 +9,8 @@ import { Product } from './products.model'
 })
 export class ProductService {
 
-  productSelected = new BehaviorSubject<Product>(null)  
+  productSelected = new BehaviorSubject<Product>(null)
+  productsChanged = new Subject<Product[]>()
 
   constructor(private stockEntryService: StockEntryService){}
 
@@ -34,13 +35,33 @@ export class ProductService {
     )
   ]
 
-  getProducts(){
-    return this.products.slice() 
-  }
-
   getProObs(): Observable<Product>{
     return this.productSelected.asObservable()
   }
+
+  getProducts(){
+    return this.products.slice()
+  }
+
+  getProduct(index: number){
+    return this.products[index]
+  }
+
+  addProduct(product: Product){
+    this.products.push(product)
+    this.productsChanged.next(this.products.slice())
+  }
+
+  updateProduct(index: number, newProduct: Product){
+    this.products[index] = newProduct
+    this.productsChanged.next(this.products.slice())
+  }
+
+  deleteProduct(index: number){
+    this.products.splice(index, 1)
+    this.productsChanged.next(this.products.slice())
+  }
+
 
   addIngreToStock(ingredients: Ingredient[]){
     this.stockEntryService.addToStock(ingredients)

@@ -1,5 +1,5 @@
 <mat-toolbar color="accent">
-  <a mat-button routerLink="/inventory" routerLinkActive="active-link">Inventory Dashboard</a>
+  <a mat-button routerLink="/inventory" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" >Inventory Dashboard</a>
   <a mat-button routerLink="/inventory/stock" routerLinkActive="active-link">Stock Entry</a>
   <a mat-button routerLink="/inventory/products" routerLinkActive="active-link">Products</a>
   <a mat-button routerLink="/inventory/categories" routerLinkActive="active-link">Categories</a>

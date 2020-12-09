@@ -8,6 +8,7 @@ import { Ingredient } from '../../shared/ingredient.model'
 export class StockEntryService {
 
   ingredientChanged = new Subject<Ingredient[]>()
+  startedEditing = new Subject<number>()
 
   private ingredients: Ingredient[] = [
     new Ingredient('Lemon', 5),
@@ -16,6 +17,20 @@ export class StockEntryService {
 
   getIngredients(){
     return this.ingredients.slice()
+  }
+
+  getIngredient(index){
+    return this.ingredients[index]
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient){
+    this.ingredients[index] = newIngredient
+    this.ingredientChanged.next(this.ingredients.slice())
+  }
+
+  deleteIngredient(index: number){
+    this.ingredients.splice(index, 1)
+    this.ingredientChanged.next(this.ingredients.slice())
   }
 
   addIngredient(ingredient: Ingredient){

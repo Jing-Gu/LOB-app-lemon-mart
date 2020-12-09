@@ -9,7 +9,7 @@ import { StockEntryService } from './stock-entry.service'
 export class StockEntryComponent implements OnInit {
 
   ingredients: Ingredient[]
-  
+
   constructor(private stockEntryService: StockEntryService) { }
 
   ngOnInit(){
@@ -20,6 +20,10 @@ export class StockEntryComponent implements OnInit {
         this.ingredients = res
       }
     )
+  }
+
+  onEditItem(index: number){
+    this.stockEntryService.startedEditing.next(index)
   }
 
 }

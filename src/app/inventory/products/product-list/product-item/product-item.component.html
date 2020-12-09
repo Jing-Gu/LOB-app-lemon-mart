@@ -1,4 +1,4 @@
-<div class='list-wrapper' (click)='onSelected()'>
+<a class='list-wrapper' [routerLink]='[index]' routerLinkActive='active'>
   <div class='left'>
     <h4>{{ product.name }}</h4>
     <p>{{ product.description }}</p>
@@ -6,4 +6,4 @@
   <div class='right'>
     <img [src]='product.imagePath' alt=''>
   </div>
-</div>
+</a>
