@@ -84,6 +84,8 @@ export class ProductEditComponent implements OnInit {
 
   onDeleteIngredient(index: number){
     (<FormArray>this.productEditForm.get('ingredients')).removeAt(index)
+    //if clearing all items in a FormArray
+    //(<FormArray>this.productEditForm.get('ingredients')).clear()
   }
 
   onCancel(){

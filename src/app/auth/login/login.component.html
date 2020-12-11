@@ -5,7 +5,7 @@
 
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Welcome back</mat-card-title>
+      <mat-card-title><h2>Welcome back</h2></mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]='loginForm' (ngSubmit)='onSubmit()' *ngIf="!isLoading">
@@ -27,8 +27,9 @@
             <mat-error *ngIf="loginForm.get('password').hasError('maxLength')">Password is at most 50 characters long.</mat-error>
           </mat-form-field>
         </div>
-  
+
         <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">Login</button>
+        <button mat-stroked-button type="button" (click)='onSwitch()'>No Account? Sign up</button>
       </form>
     </mat-card-content>
   </mat-card>

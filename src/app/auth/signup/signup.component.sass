@@ -2,21 +2,33 @@ main
   position: relative
   //border: 1px solid red
 
-  .mat-card
-  width: 50%
-  padding: 3rem
+.mat-card
+  max-width: 300px
   margin: 50px auto
+  display: flex
+  flex-direction: column
+  align-items: center
+  .mat-card-header
+    margin-bottom: 2rem
+    .mat-card-title
+      width: 100%
+  .mat-card-content
+    form
+      display: flex
+      flex-direction: column
+      align-items: center
+    .form-field
+      display: flex
+      align-items: center
+      justify-content: center
+      .mat-icon
+        margin-right: 1rem
 
-  .form-field
-    display: flex
-    align-items: center
-    justify-content: center
-    .mat-icon
-      margin-right: 1rem
 
   button
     display: block
-    margin: 2rem auto
+    width: 100%
+    margin-top: 2rem
     padding: 0.2rem 1.5rem
 
   .spinner
@@ -25,16 +37,17 @@ main
     left: 50%
     transform: translateX(-50%)
 
-  .warning
-    z-index: 10
-    position: absolute
-    top: -40px
-    left: 0
-    width: 100%
-    text-align: center
-    border: 2px solid #ff5a5a
-    background-color: #f1b6b6
-    border-radius: 5px
-    padding: 1rem
-    p
-      color: #ff5a5a
+.warning
+  z-index: 10
+  position: absolute
+  top: -40px
+  left: 50%
+  transform: translateX(-50%)
+  width: 60%
+  text-align: center
+  border: 2px solid #ff5a5a
+  background-color: #f1b6b6
+  border-radius: 5px
+  padding: 1rem
+  p
+    color: #ff5a5a

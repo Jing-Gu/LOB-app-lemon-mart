@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private uiService: UiService
-  ) { 
+  ) {
     //route.paramMap.subscribe(params => this.redirectUrl = params.get('redirectUrl'))
   }
 
@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  onSwitch(){
+    this.router.navigate(['/signup'])
+  }
+
   onSubmit(){
     this.isLoading = true
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
@@ -55,7 +59,7 @@ export class LoginComponent implements OnInit {
       resData => {
         console.log(resData)
         this.isLoading = false
-        //this.router.navigate([this.redirectUrl])
+        this.router.navigate(['manager'])
       },
       errorMsg => {
         console.log(errorMsg)
@@ -63,19 +67,22 @@ export class LoginComponent implements OnInit {
         this.isLoading = false
       }
     )
-    this.authService.user.subscribe(
+
+    /* this.authService.user.subscribe(
       res => {
         console.log(res)
         this.router.navigate([this.homeRoutePerRole(res.role)])
         this.uiService.showToast('Welcome back!' + ' ' + res.role)
       }
-    )
- 
+    ) */
+
+
+
   }
 
-  
 
-  /* async login(submittedForm: FormGroup) { 
+
+  /* async login(submittedForm: FormGroup) {
     this.authService
     .login(submittedForm.value.email, submittedForm.value.password)
     .subscribe(authStatus => {

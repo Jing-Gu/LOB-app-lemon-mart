@@ -27,9 +27,13 @@ export class SignupComponent implements OnInit {
     email: ['', EmailValidation],
     password: ['', PasswordValidation]
   })
- 
+
 
   ngOnInit(): void {
+  }
+
+  onSwitch(){
+    this.router.navigate(['/login'])
   }
 
   onSubmit() {

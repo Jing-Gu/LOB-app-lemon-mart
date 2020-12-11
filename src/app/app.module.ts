@@ -4,10 +4,11 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { MaterialModule } from './material.module'
 
 import { AuthService } from './auth/auth.service'
+import { AuthInterceptorService } from './auth/auth-interceptor.service'
 
 import { AuthModule } from './auth/auth.module'
 import { ManagerModule } from './manager/manager.module'
@@ -41,7 +42,14 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
     UserModule,
     AppRoutingModule,
   ],
-  providers: [ AuthService ],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

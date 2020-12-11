@@ -31,6 +31,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.router.navigate(['new'], {relativeTo: this.route})
   }
 
+  onSaveData(){
+    this.productService.storeProducts()
+  }
+
+  onFetchData(){
+    this.productService.fetchProducts().subscribe()
+  }
+
   ngOnDestroy(){
     this.prodSub.unsubscribe()
   }
